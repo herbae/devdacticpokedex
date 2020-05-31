@@ -45,10 +45,8 @@ export class PokemonService {
     return this.http.get(`${this.baseUrl}/pokemon/${index}`)
       .pipe(
         map(poke => {
-          let sprites = Object.keys(poke['sprites']);
-          poke['images'] = sprites
-            .map(spriteKey => poke['sprites'][spriteKey])
-            .filter(img => img);
+          let sprites = Object.values(poke['sprites']);
+          poke['images'] = sprites.filter(img => img);
           return poke;
         })
       )
