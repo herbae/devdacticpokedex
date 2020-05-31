@@ -30,4 +30,27 @@ export class PokemonService {
   getPokemonImageUrl(index) {
     return `${this.imageUrl}${index}.png`;
   }
+
+  findPokemon(search) {
+    return this.http.get(`${this.baseUrl}/pokemon/${search}`).pipe(
+      map(pokemon => {
+        pokemon['image'] = this.getPokemonImageUrl(pokemon['id']);
+        pokemon['index'] = pokemon['id'];
+        return pokemon;
+      })
+    )
+  }
+
+  getPokemonDetails(index) {
+    return this.http.get(`${this.baseUrl}/pokemon/${index}`)
+      .pipe(
+        map(poke => {
+          let sprites = Object.keys(poke['sprites']);
+          poke['images'] = sprites
+            .map(spriteKey => poke['sprites'][spriteKey])
+            .filter(img => img);
+          return poke;
+        })
+      )
+  }
 }

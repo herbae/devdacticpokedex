@@ -21,6 +21,22 @@ export class HomePage implements OnInit {
     this.loadPokemon();
   }
 
+  onSearchChange(event) {
+    let value = event.detail.value;
+
+    if (!value) {
+      this.offset = 0;
+      this.loadPokemon();
+      return;
+    }
+
+    this.pokemonService.findPokemon(value).subscribe(res => {
+      this.pokemon = [res];
+    }, err => {
+      this.pokemon = [];
+    });
+  }
+
   loadPokemon(loadMore = false, event?) {
     if (loadMore) {
       this.offset += 25;
