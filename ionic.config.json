@@ -1,0 +1,7 @@
+{
+  "name": "devdacticPokedex",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
